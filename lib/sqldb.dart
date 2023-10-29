@@ -17,20 +17,18 @@ Future<Database?>get db async{
   initialDb() async {
     String dataBasePath = await getDatabasesPath();
     String path = join(dataBasePath, dataBaseName);
-    Database database = await openDatabase(path, onCreate: onCreate,onUpgrade:onUpgrade );
+    Database database = await openDatabase(path, onCreate: onCreate,version: 1,onUpgrade:onUpgrade );
     return database;
   }
   onUpgrade(Database database,int oldVersion,int newVersion) {
 
 print("onUpgrade==========================>");
   }
- onCreate(Database database, int version) async {
+onCreate(Database database, int version) async {
     await database.execute('''
-Create table  "note" (
-
+Create table  "notes" (
   "id" INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
   "note" TEXT NOT NULL
-
 )
     ''');
     print("on create database=====================>");
